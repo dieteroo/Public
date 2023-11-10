@@ -1,11 +1,12 @@
  #--------------------------------------------------------------------------#
 #- Created by:             Dieter Oosterbaan                              -#
-#- Version:                1.2                                            -#
+#- Version:                1.3                                            -#
 #--------------------------------------------------------------------------#
 # Change Log                                                              -#
 # 25 October 2023          Initial Script for Windows Server 2022         -#
 # 10 November 2023         Added workstation or server choice             -#
 # 10 November 2023         Added second HDD for server                    -#
+# 10 November 2023         Computername prompt name standardization       -#
 #--------------------------------------------------------------------------#
 
 #-------------#
@@ -14,7 +15,12 @@
 
 $ParentDir = 'C:\Virtual_Machines'
 $Switch = 'ExternalVirtualSwitch'
-$VMName = Read-Host -Prompt 'Input your desired name for the virtual machine'
+
+ #---------------------------#
+#- Prompt for computername -#
+#---------------------------#
+Write-Host "VM-WIN-S- or VM-WIN-W- will be added automagically" -ForegroundColor Yellow
+$VMName = Read-Host -Prompt 'Input your desired name for the virtual machine' 
 
 #-------------------------#
 #- Workstation or server -#  
@@ -26,36 +32,38 @@ $envChoice = [System.Management.Automation.Host.ChoiceDescription[]](@(
  $environment = $Host.Ui.PromptForChoice("Environment", "Choose the target environment", $envChoice, 0)
 
 if($environment -eq 0) {
-	$Memory = 8GB
-	$Processor = 1
-	$HDD = 30GB
-	$Image = 'C:\Iso\en-us_windows_10_consumer_editions_version_22h2_x64_dvd_8da72ab3.iso'
+    $VMName = "VM-WIN-Ws-" + $VMName 
+    $Memory = 8GB
+    $Processor = 1
+    $HDD = 30GB
+    $Image = 'C:\Iso\en-us_windows_10_consumer_editions_version_22h2_x64_dvd_8da72ab3.iso'
 }
 
 if($environment -eq 1) {
-	$Memory = 12GB
-	$Processor = 2
-	$HDD = 50GB
-	$HDD2 = 50GB
-	$Image = 'C:\Iso\en-us_windows_server_2022_updated_july_2023_x64_dvd_541692c3.iso'
+    $VMName = "VM-WIN-Ser-" + $VMName
+    $Memory = 12GB
+    $Processor = 2
+    $HDD = 50GB
+    $HDD2 = 50GB
+    $Image = 'C:\Iso\en-us_windows_server_2022_updated_july_2023_x64_dvd_541692c3.iso'
 } 
 
 #-------------------------------------------#
 #- create a directory for virtual machines -#
 #-------------------------------------------#
 if (Test-Path $ParentDir) {
-    Write-Host "Folder Exists"
+    Write-Host $ParentDir " folder exists" 
 }
 else {
     New-Item $ParentDir -ItemType Directory
-    Write-Host "Folder Created successfully"
+    Write-Host $ParentDir " folder created successfully" 
 }
 
 #------------------------------------------#
 #- check if VM with identical name exists -#
 #------------------------------------------#
 if (Test-Path $ParentDir\$VMName) {
-    Write-Host "VM Exists"
+    Write-Host "Folder" $ParentDir\$VMName "exists - VM Exists" 
 	break
 }
 
