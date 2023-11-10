@@ -1,10 +1,11 @@
-#--------------------------------------------------------------------------#
+ #--------------------------------------------------------------------------#
 #- Created by:             Dieter Oosterbaan                              -#
-#- Version:                1.1                                            -#
+#- Version:                1.2                                            -#
 #--------------------------------------------------------------------------#
 # Change Log                                                              -#
 # 25 October 2023          Initial Script for Windows Server 2022         -#
-# 10 November 2023.        Added workstation or server choice             -#
+# 10 November 2023         Added workstation or server choice             -#
+# 10 November 2023         Added second HDD for server                    -#
 #--------------------------------------------------------------------------#
 
 #-------------#
@@ -35,6 +36,7 @@ if($environment -eq 1) {
 	$Memory = 12GB
 	$Processor = 2
 	$HDD = 50GB
+	$HDD2 = 50GB
 	$Image = 'C:\Iso\en-us_windows_server_2022_updated_july_2023_x64_dvd_541692c3.iso'
 } 
 
@@ -72,10 +74,21 @@ If ( ! ( Get-VMSwitch | Where {$_.Name -eq $Switch} ) ) {
 New-VM -Name $VMName `
 -MemoryStartupBytes $Memory `
 -Generation 1 `
--NewVHDPath "$ParentDir\$VMName\$VMName.vhdx" `
+-NewVHDPath "$ParentDir\$VMName\$VMName-Disk01.vhdx" `
 -NewVHDSizeBytes $HDD `
 -Path "$ParentDir\$VMName" `
 -SwitchName $Switch 
+
+#--------------------------------------#
+#- create & add second HDD for server -#
+#--------------------------------------#
+If ($environment -eq 1) {
+    New-VHD -SizeBytes $HDD2 `
+    -Path “$ParentDir\$VMName\$VMName-Disk02.vhdx”
+    Add-VMHardDiskDrive -VMName $VMName `
+    -Path “$ParentDir\$VMName\$VMName-Disk02.vhdx” `
+    -ControllerType IDE -ControllerNumber 0 -ControllerLocation 1
+}
 
 #-------------------------#
 #- disable DynamicMemory -#
@@ -107,3 +120,4 @@ Set-VM -VMName $VMName -AutomaticCheckpointsEnabled $False
 #- start the virtual machine -#
 #-----------------------------#
 Start-VM -Name $VMName  
+ 
