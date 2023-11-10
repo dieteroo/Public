@@ -78,7 +78,7 @@ $SwitchTypeChoice = [System.Management.Automation.Host.ChoiceDescription[]](@(
 $SwitchType = $Host.Ui.PromptForChoice("Environment", "Choose the target environment", $SwitchTypeChoice, 0)
 
 if($SwitchType -eq 0) {
-$Switch = 'PrivateVirtualSwitchtest'    
+$Switch = 'PrivateVirtualSwitch'    
     If ( ! ( Get-VMSwitch | Where {$_.Name -eq $Switch} ) ) {
         New-VMSwitch -Name $Switch -SwitchType Private
     }
@@ -86,14 +86,14 @@ $Switch = 'PrivateVirtualSwitchtest'
 
 if($SwitchType -eq 1) {
 $ethernet = Get-NetAdapter -Name "Ethernet 5"
-$Switch = 'ExternalVirtualSwitchtest'
+$Switch = 'ExternalVirtualSwitch'
     If ( ! ( Get-VMSwitch | Where {$_.Name -eq $Switch} ) ) {
         New-VMSwitch -Name $Switch -NetAdapterName $ethernet.Name -AllowManagementOS $True
     }
 }
 
 if($SwitchType -eq 2) {
-$Switch = 'InternalVirtualSwitchtest'    
+$Switch = 'InternalVirtualSwitch'    
     If ( ! ( Get-VMSwitch | Where {$_.Name -eq $Switch} ) ) {
         New-VMSwitch -Name $Switch -SwitchType Internal
     }
