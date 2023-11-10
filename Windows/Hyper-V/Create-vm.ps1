@@ -19,7 +19,7 @@ $ParentDir = 'C:\Virtual_Machines'
 #---------------------------#
 #- Prompt for computername -#
 #---------------------------#
-Write-Host "VM-WIN-S- or VM-WIN-W- will be added automagically" -ForegroundColor Yellow
+Write-Host "VM-WIN-Ser- or VM-WIN-Ws- will be added automagically" -ForegroundColor Yellow
 $VMName = Read-Host -Prompt 'Input your desired name for the virtual machine' 
 
 #-------------------------#
