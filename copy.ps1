@@ -26,3 +26,7 @@ if ($filesToMove.count -gt 0) {
         }
     }
 }
+
+else {
+    Write-Host "Geen bestanden gevonden om te kopieren" -ForegroundColor Red
+}
