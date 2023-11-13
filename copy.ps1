@@ -18,15 +18,16 @@ $filesToMove | ForEach-Object {
 
     [string] $filePath = $file.FullName
 
- write-host $dateDirectoryPath/$file.FullName
+ write-host $dateDirectoryPath
+ write-host$filePath
 
     if (!(Test-Path -Path $dateDirectoryPath/$filePath -PathType Leaf))
     {
-    Write-Information "Verplaatsen van '$filePath' naar folder '$dateDirectoryPath'." -ForegroundColor Green
+    Write-Host "Verplaatsen van '$filePath' naar folder '$dateDirectoryPath'." -ForegroundColor Green
     Move-Item -Path $filePath -Destination $dateDirectoryPath
     }
     else
     {
-    Write-Information "Bestand '$filePath' bestaat reeds in folder '$dateDirectoryPath'." -ForegroundColor Red
+    Write-Host "Bestand '$filePath' bestaat reeds in folder '$dateDirectoryPath'." -ForegroundColor Red
     }
 }
