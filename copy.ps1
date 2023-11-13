@@ -7,7 +7,7 @@ $filesToMove | ForEach-Object {
     [System.IO.FileInfo] $file = $_
 
     [DateTime] $fileDate = $file.LastWriteTime
-    [string] $dateDirectoryName = $fileDate.ToString('yyyy.MM.dd')
+    [string] $dateDirectoryName = $fileDate.ToString('yyyy-MM-dd')
     [string] $dateDirectoryPath = Join-Path -Path $TargetDirectoryPath -ChildPath $dateDirectoryName
 
     if (!(Test-Path -Path $dateDirectoryPath -PathType Container))
