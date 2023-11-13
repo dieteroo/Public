@@ -12,7 +12,7 @@ $filesToMove | ForEach-Object {
 
     if (!(Test-Path -Path $dateDirectoryPath -PathType Container))
     {
-        Write-Verbose "Creating directory '$dateDirectoryPath'."
+        Write-Verbose "Aanmaken van folder '$dateDirectoryPath'." -ForegroundColor Yellow
         New-Item -Path $dateDirectoryPath -ItemType Directory -Force > $null
     }
 
@@ -20,7 +20,11 @@ $filesToMove | ForEach-Object {
 
     if (!(Test-Path -Path $dateDirectoryPath/$filePath -PathType Leaf))
     {
-    Write-Information "Moving file '$filePath' into directory '$dateDirectoryPath'."
+    Write-Information "Verplaatsen van '$filePath' naar folder '$dateDirectoryPath'." -ForegroundColor Green
     Move-Item -Path $filePath -Destination $dateDirectoryPath
+    }
+    elseif 
+    {
+    Write-Information "Bestand '$filePath' bestaat reeds in folder '$dateDirectoryPath'." -ForegroundColor Red
     }
 }
