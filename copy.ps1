@@ -17,10 +17,12 @@ if ($filesToMove.count -gt 0) {
         }
 
         [string] $filePath = $file.FullName
+        
         if (!(Test-Path -Path $dateDirectoryPath/$file -PathType Leaf)) {
             Write-Host "Verplaatsen van '$filePath' naar folder '$dateDirectoryPath' gelukt" -ForegroundColor Green
             Move-Item -Path $filePath -Destination $dateDirectoryPath
         }
+        
         else {
             Write-Host "Bestand '$filePath' bestaat reeds in folder '$dateDirectoryPath'." -ForegroundColor Red
         }
