@@ -13,7 +13,7 @@ $filesToMove | ForEach-Object {
     if (!(Test-Path -Path $dateDirectoryPath -PathType Container))
     {
         Write-Verbose "Creating directory '$dateDirectoryPath'."
-        New-Item -Path $dateDirectoryPath-ItemType Directory -Force > $null
+        New-Item -Path $dateDirectoryPath -ItemType Directory -Force > $null
     }
 
     [string] $filePath = $file.FullName
