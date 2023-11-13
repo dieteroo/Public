@@ -25,7 +25,7 @@ $filesToMove | ForEach-Object {
     Write-Information "Verplaatsen van '$filePath' naar folder '$dateDirectoryPath'." -ForegroundColor Green
     Move-Item -Path $filePath -Destination $dateDirectoryPath
     }
-    elseif 
+    else
     {
     Write-Information "Bestand '$filePath' bestaat reeds in folder '$dateDirectoryPath'." -ForegroundColor Red
     }
