@@ -18,7 +18,7 @@ $filesToMove | ForEach-Object {
 
     [string] $filePath = $file.FullName
 
-$dateDirectoryPath/$file.FullName
+ write-host $dateDirectoryPath/$file.FullName
 
     if (!(Test-Path -Path $dateDirectoryPath/$filePath -PathType Leaf))
     {
