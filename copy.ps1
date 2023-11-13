@@ -15,6 +15,10 @@ $filesToMove | ForEach-Object {
         Write-Verbose "Aanmaken van folder '$dateDirectoryPath'." -ForegroundColor Yellow
         New-Item -Path $dateDirectoryPath -ItemType Directory -Force > $null
     }
+    else
+    {
+    Write-Host "Folder '$dateDirectoryPath' bestaat reeds" -ForegroundColor Red
+    }
 
     [string] $filePath = $file.FullName
 
