@@ -17,6 +17,10 @@ $filesToMove | ForEach-Object {
     }
 
     [string] $filePath = $file.FullName
+
+    if (!(Test-Path -Path $dateDirectoryPath/$filePath -PathType File))
+    {
     Write-Information "Moving file '$filePath' into directory '$dateDirectoryPath'."
     Move-Item -Path $filePath -Destination $dateDirectoryPath
+    }
 }
