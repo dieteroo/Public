@@ -18,6 +18,8 @@ $filesToMove | ForEach-Object {
 
     [string] $filePath = $file.FullName
 
+$dateDirectoryPath/$file.FullName
+
     if (!(Test-Path -Path $dateDirectoryPath/$filePath -PathType Leaf))
     {
     Write-Information "Verplaatsen van '$filePath' naar folder '$dateDirectoryPath'." -ForegroundColor Green
