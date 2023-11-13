@@ -12,19 +12,15 @@ $filesToMove | ForEach-Object {
 
     if (!(Test-Path -Path $dateDirectoryPath -PathType Container))
     {
-        Write-Verbose "Aanmaken van folder '$dateDirectoryPath'." -ForegroundColor Yellow
+        Write-Host "Aanmaken van folder '$dateDirectoryPath'." -ForegroundColor Yellow
         New-Item -Path $dateDirectoryPath -ItemType Directory -Force > $null
     }
 
     [string] $filePath = $file.FullName
-
- write-host $dateDirectoryPath
- write-host $file
-
     if (!(Test-Path -Path $dateDirectoryPath/$file -PathType Leaf))
     {
-    Write-Host "Verplaatsen van '$filePath' naar folder '$dateDirectoryPath'." -ForegroundColor Green
-    Move-Item -Path $filePath -Destination $dateDirectoryPath
+        Write-Host "Verplaatsen van '$filePath' naar folder '$dateDirectoryPath' gelukt" -ForegroundColor Green
+        Move-Item -Path $filePath -Destination $dateDirectoryPath
     }
     else
     {
