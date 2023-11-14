@@ -1,5 +1,5 @@
-[string] $SourceDirectoryPath = 'C:\Users\test\DCIM'
-[string] $TargetDirectoryPath = 'C:\Users\test\Te sorteren'
+[string] $SourceDirectoryPath = 'G:\DCIM\100MSDCF'
+[string] $TargetDirectoryPath = 'D:\Gebruikers\test\Afbeeldingen\00_TE_SORTEREN'
 
 [System.Collections.ArrayList] $filesToMove = Get-ChildItem -Path $SourceDirectoryPath -File -Force -Recurse
 
@@ -28,7 +28,10 @@ if ($filesToMove.count -gt 0) {
         }
     }
 }
-
 else {
     Write-Host "Geen bestanden gevonden om te kopieren" -ForegroundColor Red
 }
+
+Read-Host -Prompt "Druk op een willekeurige toets om dit venster te sluiten en de map $TargetDirectoryPath weer te geven"
+
+Invoke-Item $TargetDirectoryPath
