@@ -32,6 +32,6 @@ else {
     Write-Host "Geen bestanden gevonden om te kopieren" -ForegroundColor Red
 }
 
-Read-Host -Prompt "Druk op een willekeurige toets om dit venster te sluiten en de map $TargetDirectoryPath weer te geven"
+Read-Host -Prompt "Druk op de enter toets om dit venster te sluiten en de map $TargetDirectoryPath weer te geven"
 
 Invoke-Item $TargetDirectoryPath
