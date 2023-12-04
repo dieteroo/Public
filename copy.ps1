@@ -1,7 +1,13 @@
 [string] $SourceDirectoryPath = 'G:\DCIM\100MSDCF'
-[string] $TargetDirectoryPath = 'D:\Gebruikers\test\Afbeeldingen\00_TE_SORTEREN'
+[string] $MyPictures = [environment]::GetFolderPath('MyPictures')
+[string] $TargetDirectoryPath = $MyPictures + '\00_TE_SORTEREN'
 
 [System.Collections.ArrayList] $filesToMove = Get-ChildItem -Path $SourceDirectoryPath -File -Force -Recurse
+
+if (!(Test-Path -Path $TargetDirectoryPath -PathType Container)) {
+    Write-Host "Aanmaken van folder '$TargetDirectoryPath'." -ForegroundColor Yellow
+    New-Item -Path $TargetDirectoryPath -ItemType Directory -Force > $null
+}
 
 if ($filesToMove.count -gt 0) {
     $filesToMove | ForEach-Object {
