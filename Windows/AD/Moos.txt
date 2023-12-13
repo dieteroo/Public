@@ -1,0 +1,364 @@
+xx) Opdracht: creeer VM
+Maak een virtuele machine aan die dienst zal doen als Domain Controller
+***
+Create-VM.ps1
+
+xx) Opdracht: installatie van een server
+
+***
+AD-primary.ps1
+
+14) Opdracht: installatie van een domain controller
+Je bent nog maar net aangekomen op het familiebedrijf, Brouwerij Moos en wacht op de introductie. Je hebt al wel opgevangen dat men heel snel een Active Directory Domain wenst te bekomen voor alle gebruikers. Je neemt reeds initiatief en installeert al de Domain Controller role op een beschikbare machine.
+Dit bedrijf wordt de rode draad voor alle volgende oefeningen.
+***
+Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+Install-ADDSForest -DomainName "ad.moos.internal" -DomainNetBiosName "MOOS" -InstallDns:$true -NoRebootOnCompletion:$true
+Restart-Computer
+
+Disable the AllowNTCrypto setting in the Default Domain Controllers Policy GPO.
+Log on to a Windows Server 2008-based domain controller.
+Click Start, click Run, type gpmc.msc, and then click OK.
+In the Group Policy Management console, expand Forest: DomainName, expand Domains, expand DomainName, and then expand Domain Controllers.
+Right-click Default Domain Controllers Policy, and then click Edit.
+In the Group Policy Management Editor console, expand Computer Configuration, expand Policies, expand Administrative Templates, and then expand System.
+Click Net Logon.
+Double-click Allow cryptography algorithms compatible with Windows NT 4.0.
+In the dialog box, click the Disabled option, and then click OK.
+
+17) Opdracht: een organigram maken
+Brouwerij Moos is al 100 jaar lang een echte waarde in het Belgisch bierbrouwlandschap. Vandaag staat Jeroen Moos aan het hoofd van deze brouwerij, waar zo’n 80 man werkt.
+Jeroen Moos (JM voor de vrienden) wordt bijgestaan door zijn schoonbroer Piet Huysenbrouwer, die aan het hoofd staat van onderzoek, zijn zus Angela Moos die de productie leidt en hun neef Hop Karlsberg die vooral de logistiek in het oog houdt. 
+Samen vormen ze directie.
+•    Angela Moos wordt bijgestaan door 2 teamleiders. 1 voor de dagshift en 1 voor de nachtshift. Samen hebben ze zo’n 40 productiemedewerkers onder hen. 
+Regelmatig roepen ze de hulp in van zo’n 10 interimmers, vooral tijdens een EK of WK
+•    Hop Karlsberg en zijn team van 10 planners staan in voor het transport en zorgen dat er genoeg lege kratten bier te vullen zijn.
+•    JM is naast CEO tevens de marketingexpert van het bedrijf hij heeft 5 “marketeers” die hem bijstaan. Daarnaast heeft hij een persoonlijke secretaresse.
+•    Piet Huysenbrouwer leidt zo’n 9 onderzoekers, elke dag in de weer op zoek naar nieuwe recepten.
+•    De boekhouding wordt gedaan door een extern bedrijf. Alle payroll wordt buiten het bedrijf gedaan. 
+Af en toe gebeurt er wel een update waar enkel de directie bij kan. De contactpersoon binnen dit bedrijf is Petra Alm.
+Hou dit organogram bij, we gaan het nodig hebben bij het volgende onderdeel: Organisational Units.
+***
+Brouwerij Moos
+Jeroen Moos (JM) - CEO & Marketing
+Johan Desmedt - Secretaresse
+Piet Huysenbrouwer - Onderzoek
+Angela Moos - Productie
+Hop Karlsberg - Logistiek
+Productie
+Teamleider 1 - Nachtshift
+Teamleider 2 - Dagshift
+40 productiemedewerkers
+±10 interimmers
+Logistiek
+10 planners
+Marketing
+5 marketeers
+Onderzoek
+9 onderzoekers
+Boekhouding (extern)
+-Contactpersoon Petra Alm
+
+19) Opdracht: Organisational Units aanmaken
+OU's hoeven niet aangemaakt te worden op basis van een organigram, zoals eerder aangehaald kan dit op basis van resources, functionaliteit en bepaalde noden. Vermits dit onze eerste OU-structuur is, gaan we op basis van jullie eerder gemaakte organigram (Brouwerij Moos) werken.
+***
+#New-ADOrganizationalUnit -Name "MOOS" -Path "DC=ad,DC=moos,DC=internal"
+#New-ADOrganizationalUnit -Name "Users" -Path "OU=MOOS,DC=ad,DC=moos,DC=internal"
+
+New-ADObject -Name "MOOS" -Type "container" -Path "DC=ad,DC=moos,DC=internal"
+New-ADObject -Name "Users" -Type "container" -Path "OU=MOOS,DC=ad,DC=moos,DC=internal"
+
+New-ADOrganizationalUnit -Name "Directie" -Path "OU=Users,OU=MOOS,DC=ad,DC=moos,DC=internal"
+New-ADOrganizationalUnit -Name "Onderzoek" -Path "OU=Users,OU=MOOS,DC=ad,DC=moos,DC=internal"
+New-ADOrganizationalUnit -Name "Productie" -Path "OU=Users,OU=MOOS,DC=ad,DC=moos,DC=internal"
+New-ADOrganizationalUnit -Name "Logistiek" -Path "OU=Users,OU=MOOS,DC=ad,DC=moos,DC=internal"
+New-ADOrganizationalUnit -Name "Marketing" -Path "OU=Users,OU=MOOS,DC=ad,DC=moos,DC=internal"
+New-ADOrganizationalUnit -Name "Boekhouding" -Path "OU=Users,OU=MOOS,DC=ad,DC=moos,DC=internal"
+
+24) Opdracht: aanmaken van user accounts
+Maak de accounts aan voor alle leden van de directie van Brouwerij Moos. Doe dit manueel.
+***
+
+New-ADUser -Name "Jeroen Moos" -GivenName "Jeroen" -Surname "Moos" -SamAccountName "jeroen.moos" -StreetAddress "Brouwersveld 1" -UserPrincipalName jeroen.moos@ad.moos.internal -EmailAddress jeroen.moos@ad.moos.internal -AccountPassword (ConvertTo-SecureString -AsPlainText “Vdab3001” -Force) -ChangePasswordAtLogon $False -Company "Brouwerij Moos" -Title "CEO" -City "Oostrozebeke" -Department "Directie" -DisplayName "Jeroen Moos" -Country "BE" -PostalCode "8780" -Enabled $True -Path "OU=Directie,OU=Users,OU=MOOS,DC=ad,DC=moos,DC=internal"
+
+New-ADUser -Name "Piet Huysenbrouwer" -GivenName "Piet" -Surname "Huysenbrouwer" -SamAccountName "piet.huysenbrouwer" -StreetAddress "Brouwersveld 1" -UserPrincipalName piet.huysenbrouwer@ad.moos.internal -EmailAddress piet.huysenbrouwer@ad.moos.internal -AccountPassword (ConvertTo-SecureString -AsPlainText “Vdab3001” -Force) -ChangePasswordAtLogon $False -Company "Brouwerij Moos" -Title "Director Onderzoek" -City "Oostrozebeke" -Department "Directie" -DisplayName "Piet Huysenbrouwer" -Country "BE" -PostalCode "8780" -Enabled $True -Path "OU=Directie,OU=Users,OU=MOOS,DC=ad,DC=moos,DC=internal"
+
+New-ADUser -Name "Angela Moos" -GivenName "Angela" -Surname "Moos" -SamAccountName "angela.moos" -StreetAddress "Brouwersveld 1" -UserPrincipalName angela.moos@ad.moos.internal -EmailAddress angela.moos@ad.moos.internal -AccountPassword (ConvertTo-SecureString -AsPlainText “Vdab3001” -Force) -ChangePasswordAtLogon $False -Company "Brouwerij Moos" -Title "Director Productie" -City "Oostrozebeke" -Department "Directie" -DisplayName "Angela Moos" -Country "BE" -PostalCode "8780" -Enabled $True -Path "OU=Directie,OU=Users,OU=MOOS,DC=ad,DC=moos,DC=internal"
+
+New-ADUser -Name "Hop Karlsberg" -GivenName "Hop" -Surname "Karlsberg" -SamAccountName "hop.karlsberg" -StreetAddress "Brouwersveld 1" -UserPrincipalName hop.karlsberg@ad.moos.internal -EmailAddress hop.karlsberg@ad.moos.internal -AccountPassword (ConvertTo-SecureString -AsPlainText “Vdab3001” -Force) -ChangePasswordAtLogon $False -Company "Brouwerij Moos" -Title "Director Logistiek" -City "Oostrozebeke" -Department "Directie" -DisplayName "Hop Karlsberg" -Country "BE" -PostalCode "8780" -Enabled $True -Path "OU=Directie,OU=Users,OU=MOOS,DC=ad,DC=moos,DC=internal"
+
+Jeroen Moos (JM) - CEO & Marketing
+Piet Huysenbrouwer - Onderzoek
+Angela Moos - Productie
+Hop Karlsberg - Logistiek
+
+26) Opdracht: automatisch aanmaken van user accounts
+Er zijn verschillende mogelijkheden om AD-objecten in bulk toe te voegen in AD:
+Via Powershell:  voorbeeld van een simpel script dat op basis van een CSV-bestand gebruikers kan importeren in je Active Directory.
+***
+ImportADUsers.ps1
+ImportADUsers.csv
+
+35) Opdracht: aanmaken van groups
+Maak reeds de Global Groups aan voor Brouwerij Moos. De Domain Local groups zijn ons nog onbekend vermits we de resources nog niet kennen. 
+Voeg ook de passende gebruikers toe.
+Bedenk ook reeds een "naming convention" voor je groepen. Hoe ga je het onderscheid maken tussen een global group en een domain local group en het eventueel nut?
+***
+#New-ADOrganizationalUnit -Name "Groups" -Path "OU=MOOS,DC=ad,DC=moos,DC=internal"
+New-ADObject -Name "Groups" -Type "container" -Path "OU=MOOS,DC=ad,DC=moos,DC=internal"
+
+New-ADOrganizationalUnit -Name "GlobalGroups" -Path "OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal"
+Afdeling-Functie-Global Group
+(MW Medewerker / TL Teamleader / VP Director / ALL)
+
+Directie-GG
+Directie-MW-GG
+Onderzoek-VP-GG
+Onderzoek-MW-GG
+Productie-VP-GG
+Productie-TL-GG
+Productie-MW-GG
+Logistiek-VP-GG
+Logistiek-MW-GG
+Marketing-VP-GG
+Marketing-MW-GG
+Boekhouding-GG
+
+41) Opdracht: het aanmaken van shares
+Angela Moos heeft de volgende eisen voor de shares:
+Elke afdeling heeft een eigen share. Iedereen heeft binnen zijn afdeling alle rechten (minus full control). 
+De directie heeft een eigen share. Binnen deze share is een folder waar de externe boekhouder zijn excel met cijfers plaatst. De rest van de data op de share mag ze niet zien.
+De directie heeft overal minstens leestoegang op. Behalve op de share van onderzoek. Dit is enkel voor Piet en zijn team.
+De persoonlijke secretaresse van JM kan alles lezen waar de directie aankan. Maar niet de marketingdrive.
+Op de productieshare is een speciale folder waar het afdelingshoofd en de teamleaders de werkschema’s van de personeelsleden aanpassen. De personeelsleden kunnen enkel lezen.
+
+***
+Get-VM -VMName SRV-A | Select-Object VMId | Get-VHD | `
+Format-List Path,VhdFormat,VhdType,Size 
+
+New-VHD -SizeBytes 50GB `
+-Path “C:\Users\Public\Documents\Hyper-V\Virtual Hard Disks\SRV-A-data.vhdx”
+
+Add-VMHardDiskDrive -VMName SRV-A `
+-Path “C:\Users\Public\Documents\Hyper-V\Virtual Hard Disks\SRV-A-data.vhdx” `
+-ControllerType IDE -ControllerNumber 0 -ControllerLocation 1
+**
+Install-WindowsFeature File-Services
+Install-WindowsFeature FS-DFS-Namespace, RSAT-DFS-Mgmt-Con
+New-SmbShare -Name Groupdata -Path E:\Moosdata -FolderEnumerationMode AccessBased -CachingMode Documents -EncryptData $True -FullAccess Everyone
+Install-WindowsFeature FS-Resource-Manager
+
+DFS
+\\files.moos.internal
+
+Namespaces
+\Moos\Directie
+\Moos\Logistiek
+\Moos\Marketing
+\Moos\Onderzoek
+\Moos\Productie
+\Moos\Private
+
+--TARGET 
+van \AFDELING naar \Server\Data\AFDELING
+--TARGET 
+van \Private naar \Server\Data\Private
+--TARGET
+van \AFDELING\Private naar \\Server\Data\Private\AFDELING\LINK (deze destination bevat onderstaande links ZZZ*uniek*)
+--TARGET
+van \AFDELING\xxx\yyy\ZZZ naar \Server\Data\Private\AFDELING\ZZZ*uniek*
+
+Shares
+\\Server\Data\Directie
+\\Server\Data\Logistiek
+\\Server\Data\Marketing
+\\Server\Data\Onderzoek
+\\Server\Data\Productie
+\\Server\Data\Private
+\\Server\Data\Private\Directie\LINK
+\\Server\Data\Private\Directie\Boekhouding
+\\Server\Data\Private\Productie\LINK
+\\Server\Data\Private\Productie\Productieplanning
+
+*Private 1e sub: disable inheritance; enkel admins hebben rechten
+*Private 2e sub: disable inheritance; enkel admins hebben rechten
+*Private 3e sub en onderliggende: enable inheritance
+
+### 
+# Define the folder path and the security group name
+	$FolderPath = "C:\TEMP1"
+	$GroupName = "Secure_Grp"
+# Get the current ACL of the folder
+	$Acl = Get-Acl $FolderPath
+# Remove inheritance for the security group
+	$Acl.SetAccessRuleProtection($true, $false)
+# Remove any existing access rules for the security group
+	$Acl.Access | Where-Object { $_.IdentityReference -eq $GroupName } | 
+    	ForEach-Object { $Acl.RemoveAccessRule($_) }
+# Grant "Read & Execute" access to the security group
+	$AccessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($GroupName, "ReadAndExecute", "Allow")
+	$Acl.AddAccessRule($AccessRule)
+# Set the modified ACL to the folder
+	Set-Acl $FolderPath $Acl
+# What this script does is:
+# 1) Get the current Access Control List (ACL) of the folder using the Get-Acl cmdlet.
+# 2) Remove inheritance for the security group using the SetAccessRuleProtection method.
+# 3) Remove any existing access rules for the security group using the RemoveAccessRule method.
+# 4) Grant "Read & Execute" access to the security group by creating a new FileSystemAccessRule object and adding it to the ACL using the AddAccessRule method.
+# 5) Apply the modified ACL to the folder using the Set-Acl cmdlet.
+###
+
+
+
+42) Opdracht: het beveiligen van shares met groups
+Nu je weet welke shares er gevraagd zijn (zie vorige opdracht, Opdracht: het aamaken van shares) en welke rechten Angela Moos hierop wenst, kan je ook meteen de correcte Domain Local groups aanmaken en deze al beginnen toe te passen. Vergeet op dit moment ook niet je Global Groups toe te voegen volgens het AGDLP-principe.
+***
+			Every share or permission should have a _rw (read write) and a _ro (read only) group
+			Modify rechten zijn DOM, max rechten is R-W (Modify = R-W + Delete folder; en delete folder heeft ook AD-technische gevolgen -> verwijderen van security groepen en shares)
+
+New-ADOrganizationalUnit -Name "DomainLocalGroups" -Path "OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal"
+
+/Op elke share Domain Local Groups
+Admin-FC-LG
+
+/Per afdeling share
+/Afdeling--Rechten-Domain Local Group
+ 
+New-ADGroup -Name -GroupScope DomainLocal -GroupCategory Security -Path "OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal"
+
+Directie--RW-LG
+Directie--Read-LG
+Logistiek--RW-LG
+Logistiek--Read-LG
+Marketing--RW-LG
+Marketing--Read-LG
+Onderzoek--RW-LG
+Onderzoek--Read-LG
+Productie--RW-LG
+Productie--Read-LG
+
+/Per afdeling private
+/Afdeling--Private-Rechten-Domain Local Group
+Directie--P-RW-LG		(LEEG)
+Directie--P-Read-LG		(\Private\Directie\LINK)
+Productie--P-RW-LG		(LEEG)
+Productie--P-Read-LG	(\Private\Productie\LINK)
+
+/Per private share
+/Afdeling-Share-Private-Rechten-Domain Local Group
+Directie-Boekhouding-P-RW-LG
+Directie-Boekhouding-P-Read-LG
+Productie-Productieplanning-P-RW-LG
+Productie-Productieplanning-P-Read-LG
+
+New-ADOrganizationalUnit -Name "UniversalGroups" -Path "OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal"
+/Linken van Global Groups & Domain Local Groups dmv Universal Groups
+ALL-Admin-FC-UG
+
+/Afdeling-Share-Rechten-Universal Group
+Directie-Directie-RW-UG
+Logistiek-Logistiek-RW-UG
+Marketing-Marketing-RW-UG
+Onderzoek-Onderzoek-RW-UG
+Productie-Productie-RW-UG
+
+Directie-Directie-Read-UG
+Directie-Productie-Read-UG
+Directie-Logistiek-Read-UG
+Directie-Marketing-Read-UG
+/Global Group-Share-Private-Rechten-Universal Group
+Directie-Boekhouding-P-RW-UG
+Boekhouding-Boekhouding-P-RW-UG
+Teamleaders-ProductiePlanning-P-RW-UG
+Productie-ProductiePlanning-Read-P-UG
+
+45) Opdracht: het configureren van een DHCP server
+Installeer en configureer de DHCP-role op je server. Voorzie ook reeds een client. Als alles goed geconfigureerd is, zou deze al een IP adres moeten ontvangen.
+***
+Install-WindowsFeature DHCP -IncludeManagementTools
+Add-DhcpServerv4Scope -Name "Internal" -StartRange 10.0.254.100 -EndRange 10.0.254.250 -SubnetMask 255.255.255.0 -Description "Internal Network"
+
+47) Opdracht: het toevoegen van een client aan een domein
+Onze client heeft normaal alle informatie om zich aan te melden aan ons domein en zal dus onze eerste officiële Brouwerij Moos client worden.
+***
+Add-Computer -DomainName ad.moos.internal -DomainCredential MOOS\administrator
+Restart-Computer
+Test-ComputerSecureChannel -Verbose
+
+48) Opdracht: uittesten shares folders
+Nu onze client in het domein zit, kunnen we uittesten of onze shares, gemaakt in de opdrachten "Opdracht: het aanmaken van shares" en "Opdracht: het beveiligen van shares met groups" werken. Browse het netwerk en zie of de shares aanwezig zijn op de server en beveiligd zijn zoals het hoort. Dit betekent dat er aangemeld moet worden met verschillende personen van verschillende afdelingen en uitgetest moet worden of bestanden al dan niet kunnen aangemaakt, naar gelang de eisen van Angela Moos.
+
+57) Opdracht: automatisch mappen van shares
+Nadat je de shares hebt uitgetest, wordt het tijd om deze automatisch te mappen naar je client computers. Gebruikers willen immers niet altijd via netwerk gaan zoeken naar hun drives. Zorg ervoor dat de juiste netwerkshares gemapped worden naar de juiste gebruikers.
+
+59) Opdracht: wijzig de Default Domain Policy
+De Default Domain Policy is een standaard GPO waar je liefst zo weinig mogelijk aan komt. Angela Moos had toch liever gehad dat de minimum lengte van gebruikerswachtwoorden op 10 wordt gebracht. Zorg dat dit gebeurt. Nieuwe wachtwoorden moeten hieraan voldoen. Implementeer dit en test dit uit.
+
+61) Opdracht: meer Group Policy Objects
+Angela Moos is tevreden met de automatisaties die je hebt binnengebracht in het bedrijf. Ze heeft echter nog een paar verzoekjes:
+De website van het bedrijf moet voor iedereen als startpagina in IE ingesteld staan.
+Graag hadden de bedrijfsleiders op elke pc de laatste versie van 7zip geïnstalleerd gezien. Deze tool is immers handiger dan de standaard ingebouwde zip-tool van Microsoft.
+https://www.manageengine.com/products/desktop-central/how-to-setup-windows-dfs-share.html
+
+63) Opdracht: redirected folders
+Angela Moos houdt er niet van dat werknemers hun documenten lokaal op hun pc bewaren. Bij een systeemcrash is er namelijk belangrijke data dan verloren. Als oplossing wenst ze dat je ervoor zorgt dat de "my documents" en "desktop" folders op de server staan. Ze vraagt ook dat je rekening houdt met security best practices.
+Piet protesteert enorm tegen dit voorstel, de nieuwe brouwsels van hem en zijn team zouden kunnen onderschept worden door een concurent wanneer een laptop gestolen wordt. Pas redirected folders niet toe op Piet en zijn team.
+
+64) Opdracht: home folder
+Sommige bestanden mogen het bedrijf niet verlaten, dit geldt vooral voor nieuwe recepten. Pas de home folder functionaliteit toe op Piet en zijn team.
+Piet heeft van Angela opgevangen dat ze je gevraagd heeft om de security best practices toe te passen op de redirected folders. Hij heeft graag dat je hetzelfde doet op de home folders.
+
+66) Opdracht: share de printers in het bedrijf
+Angela Moos heeft toch nog een laatste opdracht voor je vertrekt: Brouwerij Moos heeft meerdere printers van hetzelfde type, 1 per afdeling. Iedereen moet ze allemaal krijgen en onderscheid kunnen maken tussen de verschillende printers.
+
+74) Opdracht: maak een Backup
+Vlak voor je de deur achter je toe trekt, besef je dat Brouwerij Moos nog geen backup systeem heeft. Dit moet toch wel in orde gebracht worden voor je, je naar de volgende klant begeeft.
+Neem een full server backup van je Domain Controller naar een 2de harde schijf (maak deze aan, indien nodig). Doorloop vervolgens de recovery procedure.
+Geef je zelf een extra uitdaging en maak het realistischer: maak een aparte file server aan, creëer een share en plaats de backup hierop en recover ze hier vandaan.
+
+Optioneel
+Gebruik het oude, doch degelijke programma Cobian Backup, om een backup te maken van de belangrijke folders die op je server staan. Zorg ervoor dat ze op een 2de machine terechtkomen.
+De 2de machine is ook een Windows server machine, die je tevens lid maakt van het domein. Vervolgens installeer je hierop de iscsi target feature, je maakt hierdoor je server een SAN. Deze zal dan je doel worden voor je backups. Virtualbox is geen vereiste, het is slechts de hypervisor die gebruikt werd in deze handleiding.
+Maak backup schema's aan volgens één van de methodes besproken in het onderdeel Backup rotaties
+
+
+
+
+
+
+
+
+
+
+Scope
+There are three group scopes: universal, global, and domain local.
+UNVERSAL GROUPS
+• Should NOT be used in the domain.
+GLOBAL GROUPS
+• Are logical groupings of people based on their location, job responsibilities, etc.
+• Should be created when a logical grouping of users exists that may need to be referenced more than once
+• Should never be granted access to a resource directly
+• Should contain only user and other global group objects as members
+• Should be named after the group of people it represents
+DOMAIN LOCAL GROUPS
+• Are defined to grant an explicit set of permissions to a resource
+• Should be created for each resource access will be granted to and never used except for that resource
+• Should generally not be nested inside another domain local group
+• Should contain user and global group objects only
+• Should be named after the resource and level of access granted
+Naming Convention
+The naming standard for AD groups is:
+dddd_groupName_accessLevel_groupType
+ dddd Department code (i.e. OIT or HR)
+ groupName Name that describes the global group member relationship, or the domain local group resource
+ accessLevel Domain local groups only, access level abbreviations are:
+	FC = Full Control
+	Mod = Modify
+	RW = Read/Execute and Write
+	Read = Read/Execute
+	List = List Folder Contents
+	Apply = Read and Apply (GPO’s only)
+	Adv = All other access levels, use the description field to explain
+ groupType Group type abbreviations:
+	GG = Global Group
+	LG = Domain Local Groups
