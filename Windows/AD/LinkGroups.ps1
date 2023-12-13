@@ -13,7 +13,7 @@ Add-ADGroupMember -Identity Teamleaders-ProductiePlanning-P-RW-UG -Members Produ
 Add-ADGroupMember -Identity Productie-ProductiePlanning-P-Read-UG -Members Productie-MW-GG
 
 Add-ADGroupMember -Identity Directie-Boekhouding-P-RW-LG -Members Directie-Boekhouding-P-RW-UG, Boekhouding-Boekhouding-P-RW-UG
-Add-ADGroupMember -Identity Productie-Productieplanning-P-RW-LG -Members Teamleaders-ProductiePlanning-P-RW-U
+Add-ADGroupMember -Identity Productie-Productieplanning-P-RW-LG -Members Teamleaders-ProductiePlanning-P-RW-UG
 Add-ADGroupMember -Identity Productie-Productieplanning-P-Read-LG -Members Productie-ProductiePlanning-P-Read-UG
 Add-ADGroupMember -Identity Directie--RW-LG -Members Directie-Directie-RW-UG
 Add-ADGroupMember -Identity Logistiek--RW-LG -Members Logistiek-Logistiek-RW-UG
