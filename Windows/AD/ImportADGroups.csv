@@ -1,0 +1,43 @@
+name,path,scope,category,sdescription
+DirectieGG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Directie group
+Onderzoek-VP-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Onderzoek Directeur group
+Onderzoek-MW-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Onderzoek Medewerkers group
+Productie-VP-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Productie Directeur group
+Productie-TL-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Productie Teamleader group
+Productie-MW-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Productie Medewerker group
+Logistiek-VP-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Logistiek Directeur group
+Logistiek-MW-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Logistiek Medewerker group
+Marketing-VP-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Marketing Directeur group
+Marketing-MW-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Marketing Medewerker group
+Boekhouding-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Boekhouding group
+Directie--RW-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Directie ReadWrite group
+Directie--Read-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Directie Read group
+Logistiek--RW-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Logistiek ReadWrite group
+Logistiek--Read-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Logistiek Read group
+Marketing--RW-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Marketing ReadWrite group
+Marketing--Read-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Marketing Read group
+Onderzoek--RW-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Onderzoek ReadWrite group
+Onderzoek--Read-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Onderzoek Read group
+Productie--RW-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Productie ReadWrite group
+Productie--Read-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Productie Read group
+Directie--P-RW-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Directie Private ReadWrite  group
+Directie--P-Read-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Directie Private Read group
+Productie--P-RW-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Productie Private ReadWrite group
+Productie--P-Read-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Productie Private Read group
+Directie-Boekhouding-P-RW-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Productie Private Boekhouding ReadWrite group
+Directie-Boekhouding-P-Read-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Directie Private Boekhouding Read group
+Productie-Productieplanning-P-RW-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Productie Private Productieplanning ReadWrite group
+Productie-Productieplanning-P-Read-LG,"OU=DomainLocalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",DomainLocal,Security,Productie Private Productieplanning Read group
+ALL-Admin-FC-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Admins LG heeft FullControll rechten op ALLE shares
+Directie-Directie-RW-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Directie LG heeft ReadWrite rechten op Directie share
+Logistiek-Logistiek-RW-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Logistiek LG heeft ReadWrite rechten op Logistiek share
+Marketing-Marketing-RW-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Marketing LG heeft ReadWrite rechten op Marketing share
+Onderzoek-Onderzoek-RW-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Onderzoek LG heeft ReadWrite rechten op Onderzoek share
+Productie-Productie-RW-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Productie LG heeft ReadWrite rechten op Productie share
+Directie-Productie-Read-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Directie LG heeft Read rechten op Productie share
+Directie-Logistiek-Read-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Directie LG heeft Read rechten op Logistiek share
+Directie-Marketing-Read-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Directie LG heeft Read rechten op Marketing share
+Directie-Boekhouding-P-RW-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Directie LG heeft ReadWrite rechten op Private Boekhouding share
+Boekhouding-Boekhouding-P-RW-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Boekhouding LG heeft ReadWrite rechten op Private Boekhouding share
+Teamleaders-ProductiePlanning-P-RW-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Productie Teamleaders LG heeft ReadWrite rechten op Private Productieplanning share
+Productie-ProductiePlanning-Read-P-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Productie LG heeft Read rechten op Private ProductiePlanning shares
