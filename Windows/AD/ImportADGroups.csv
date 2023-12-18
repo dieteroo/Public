@@ -1,5 +1,6 @@
 name,path,scope,category,sdescription
-DirectieGG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Directie group
+Directie-VP-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Directie Directeur group
+Directie-MW-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Directie Medewerker group
 Onderzoek-VP-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Onderzoek Directeur group
 Onderzoek-MW-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Onderzoek Medewerkers group
 Productie-VP-GG,"OU=GlobalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Global,Security,Productie Directeur group
@@ -40,4 +41,7 @@ Directie-Marketing-Read-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,D
 Directie-Boekhouding-P-RW-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Directie LG heeft ReadWrite rechten op Private Boekhouding share
 Boekhouding-Boekhouding-P-RW-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Boekhouding LG heeft ReadWrite rechten op Private Boekhouding share
 Teamleaders-ProductiePlanning-P-RW-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Productie Teamleaders LG heeft ReadWrite rechten op Private Productieplanning share
-Productie-ProductiePlanning-Read-P-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Productie LG heeft Read rechten op Private ProductiePlanning shares
+Productie-ProductiePlanning-P-Read-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Productie LG heeft Read rechten op Private ProductiePlanning shares
+Directiesecretaresse-Productie-Read-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Directiesecretaresse heeft Read rechten op Productie share
+Directiesecretaresse-Logistiek-Read-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Directiesecretaresse heeft Read rechten op Logistiek share
+Directiesecretaresse-Boekhouding-P-Read-UG,"OU=UniversalGroups,OU=Groups,OU=MOOS,DC=ad,DC=moos,DC=internal",Universal,Security,Directiesecretaresse heeft Read rechten op Private Boekhouding share
