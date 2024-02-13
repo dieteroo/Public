@@ -1,0 +1,120 @@
+enable
+configure terminal
+
+	no ip domain-lookup
+
+	hostname DC01#SW01
+
+	ip domain-name ccna-lab.com
+
+	enable secret ciscoenpass
+
+	username admin secret admin1pass
+
+	line console 0
+		password ciscoconpass
+		exit
+
+	line vty 0 4
+		login local
+		transport input ssh
+		exit
+
+	line vty 5 15
+		login local
+		transport input ssh
+		exit
+
+	service password-encryption
+	
+	crypto key generate rsa modulus 1024
+
+banner motd %
+ +-+-+-+-+-+-+-+-+-+
+ |D|C|0|1|#|S|W|0|1|
+ +-+-+-+-+-+-+-+-+-+
+####################################
+# Unauthorized access is forbidden #
+####################################
+%
+
+	vlan 9
+		name LAN
+		exit
+
+	vlan 10
+		name MGMT
+		exit
+
+	vlan 11
+		name STOR
+		exit
+
+	vlan 12
+		name FREE
+    		exit
+
+	vlan 13
+		name DMZ
+		exit
+
+	interface range F0/1-24
+		description admin shutdown
+		shutdown
+		exit
+
+	interface range F0/1-4
+    		switchport mode access
+    		switchport access vlan 9
+		exit
+
+	interface range F0/5-8
+    		switchport mode access
+    		switchport access vlan 10
+		exit
+
+	interface range F0/9-12
+    		switchport mode access
+    		switchport access vlan 11
+		exit
+
+	interface range F0/14-16
+    		switchport mode access
+    		switchport access vlan 12
+		exit
+
+	interface range F0/17-20
+    		switchport mode access
+    		switchport access vlan 13
+		exit
+
+	interface F0/1
+		description connection to client network
+    		no shutdown
+		exit
+
+	interface G0/1
+		description connection to datacenter 01
+		switchport mode trunk
+    		switchport trunk native vlan 10
+    		switchport trunk allowed vlan 9-13
+    		no shutdown
+		exit
+
+	interface G0/2
+		description connection to DC01#RT01
+		switchport mode trunk
+    		switchport trunk native vlan 10
+    		switchport trunk allowed vlan 9-13
+    		no shutdown
+    		exit
+
+	interface vlan 10
+		description SVI vlan 10 for 192.168.7.0/27
+		ip address 192.168.7.50 255.255.255.224
+		no shutdown
+		exit
+
+	ip default-gateway 192.168.7.62
+
+  exit
