@@ -1,0 +1,96 @@
+enable
+configure terminal
+
+	no ip domain-lookup
+
+	hostname DC01#RT01
+
+	ip domain-name ccna-lab.com
+
+	enable secret ciscoenpass
+
+	username admin secret admin1pass
+
+	line console 0
+		password ciscoconpass
+		exit
+
+	line vty 0 4
+		login local
+		transport input ssh
+		exit
+
+	line vty 5 15
+		login local
+		transport input ssh
+		exit
+
+	service password-encryption
+
+	crypto key generate rsa modulus 1024
+
+banner motd %
+ +-+-+-+-+-+-+-+-+-+
+ |D|C|0|1|#|R|T|0|1|
+ +-+-+-+-+-+-+-+-+-+
+####################################
+# Unauthorized access is forbidden #
+####################################
+%
+
+  interface gigabitEthernet 0/0/0
+    description connection to DC01#SW01
+    no shutdown
+    exit
+
+  interface gigabitEthernet 0/0/0.9
+    description Default Gateway for VLAN 9
+    encapsulation dot1Q 9
+    ip address 192.168.7.30 255.255.255.224
+    no shutdown
+    exit
+
+  interface gigabitEthernet 0/0/0.10
+    description Default Gateway for VLAN 10
+    encapsulation dot1Q 10
+    ip address 192.168.7.62 255.255.255.224
+    no shutdown
+    exit
+
+  interface gigabitEthernet 0/0/0.11
+    description Default Gateway for VLAN 11
+    encapsulation dot1Q 11
+    ip address 192.168.7.94 255.255.255.224
+    no shutdown
+    exit
+
+  interface gigabitEthernet 0/0/0.12
+    description Default Gateway for VLAN 12
+    encapsulation dot1Q 12
+    ip address 192.168.7.126 255.255.255.224
+    no shutdown
+    exit
+
+  interface gigabitEthernet 0/0/0.13
+    description Default Gateway for VLAN 13
+    encapsulation dot1Q 13
+    ip address 192.168.7.158 255.255.255.224
+    no shutdown
+    exit
+
+  interface gigabitEthernet 0/0/1
+    description connection to ISP
+    ip address 172.30.1.157 255.255.255.0
+    no shutdown
+    exit
+
+  ip dhcp pool LANDHCP
+    network 192.168.7.0 255.255.255.224
+    default-router 192.168.7.30
+    dns-server 192.168.7.30
+
+  ip route 192.168.27.0 255.255.255.0 172.30.1.200
+
+  ip default-network 172.30.1.200
+
+  exit
