@@ -1,0 +1,16 @@
+apt-get update
+apt-get upgrade
+apt-get autoclean
+apt-get autoremove
+
+raspi-config nonint do_boot_splash 1
+
+raspi-config nonint enable_overlayfs
+
+mount -o remount,ro /boot
+
+raspi-config nonint do_change_timezone Europe/Brussels
+####  raspi-config nonint do_configure_keyboard be-nl
+raspi-config nonint do_expand_rootfs
+
+#### raspi-config nonint do_resolution 1280 768
