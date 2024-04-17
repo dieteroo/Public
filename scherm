@@ -1,16 +1,57 @@
-apt-get update
-apt-get upgrade
-apt-get autoclean
-apt-get autoremove
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get autoclean
+sudo apt-get autoremove
 
-raspi-config nonint do_boot_splash 1
+sudo raspi-config nonint do_boot_splash 1
 
-raspi-config nonint enable_overlayfs
+sudo raspi-config nonint enable_overlayfs
 
-mount -o remount,ro /boot
+sudo raspi-config nonint do_resolution 1280 768
 
-raspi-config nonint do_change_timezone Europe/Brussels
-####  raspi-config nonint do_configure_keyboard be-nl
-raspi-config nonint do_expand_rootfs
+curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/basketclock.py -o basketclock.py
 
-#### raspi-config nonint do_resolution 1280 768
+mkdir fonts image sounds
+
+curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/fonts/DejaVuSans-Bold.ttf -o fonts/DejaVuSans-Bold.ttf
+
+curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/fonts/LED.ttf -o fonts/LED.ttf
+
+curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/fonts/LED2.ttf -o fonts/LED2.ttf
+
+curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/image/hageland.png -o image/hageland.png
+
+curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/image/handleidingScoreboard.png -o image/handleidingScoreboard.png
+
+curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/sounds/BUZZER.WAV -o sounds/BUZZER.WAV
+
+curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/sounds/endgame.ogg -o sounds/endgame.ogg
+
+sudo apt install python3-pip -y
+python3 -m pip install pygame
+
+sudo apt install libsdl2-2.0-0 -y
+sudo apt install libsdl2-ttf-2.0-0 -y
+sudo apt install libsdl2-mixer-2.0-0 -y
+sudo apt install libsdl2-image-2.0-0 -y
+sudo apt install libegl-dev -y
+
+cat <<EOF >>basketclock.service
+[Unit]
+Description=basketclock autostart
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/basketclock.py
+Restart=on-success
+User=pi
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo cp basketclock.service /etc/systemd/system
+sudo systemctl daemon-reload
+sudo systemctl enable basketclock.service
+sudo systemctl start basketclock.service
+
+sudo mount -o remount,ro /boot
