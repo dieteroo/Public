@@ -3,37 +3,22 @@ sudo apt-get upgrade -y
 sudo apt-get autoclean
 sudo apt-get autoremove
 
-sudo raspi-config nonint do_boot_splash 1
-
 sudo raspi-config nonint enable_overlayfs
-
 sudo raspi-config nonint do_resolution 1280 768
-
-curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/basketclock.py -o basketclock.py
 
 mkdir fonts image sounds
 
+curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/basketclockthread.py -o basketclockthread.py
 curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/fonts/DejaVuSans-Bold.ttf -o fonts/DejaVuSans-Bold.ttf
-
 curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/fonts/LED.ttf -o fonts/LED.ttf
-
-curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/fonts/LED2.ttf -o fonts/LED2.ttf
-
 curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/image/hageland.png -o image/hageland.png
-
 curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/image/handleidingScoreboard.png -o image/handleidingScoreboard.png
-
 curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/sounds/BUZZER.WAV -o sounds/BUZZER.WAV
-
-curl https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test/sounds/endgame.ogg -o sounds/endgame.ogg
 
 sudo apt install python3-pip -y
 python3 -m pip install pygame
 
-sudo apt install libsdl2-2.0-0 -y
-sudo apt install libsdl2-ttf-2.0-0 -y
-sudo apt install libsdl2-mixer-2.0-0 -y
-sudo apt install libsdl2-image-2.0-0 -y
+sudo apt install libsdl2-2.0-0 libsdl2-ttf-2.0-0 libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 -y
 sudo apt install libegl-dev -y
 
 cat <<EOF >>basketclock.service
@@ -41,7 +26,7 @@ cat <<EOF >>basketclock.service
 Description=basketclock autostart
 
 [Service]
-ExecStart=/usr/bin/python3 /home/pi/basketclock.py
+ExecStart=/usr/bin/python3 /home/pi/basketclockthread.py
 Restart=on-success
 User=pi
 
