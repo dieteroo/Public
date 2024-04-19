@@ -43,7 +43,11 @@ curl -sL https://raw.githubusercontent.com/dieteroo/Public/main/install.service 
 ```bash
 curl -sL https://raw.githubusercontent.com/dieteroo/Public/main/install.hostapd | bash
 ```
+You will be asked for a SSID, a password and a WiFi-Channel
+
 Afterwards use the files in /pycom to configure the micropython device
+
+```Don't forget to change _wifi_SSID_ & _wifi_PASS_ in /pycom/boot.py```
 
 # After all is set and done, protect the boot partition
 ```bash
