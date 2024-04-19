@@ -25,7 +25,8 @@
 * YES
 ```
 ## Place micro SD in Raspberry Pi 
-## Connect network, HDMI & power
+## Connect network cable, HDMI cable & power cable
+## Let the device finish booting  (hostname login: )
 ## Connect to IP via SSH
 
 # To install the program run
@@ -42,7 +43,7 @@ curl -sL https://raw.githubusercontent.com/dieteroo/Public/main/install.service 
 ```bash
 curl -sL https://raw.githubusercontent.com/dieteroo/Public/main/install.hostapd | bash
 ```
-## Afterwards use the files in /pycom to configure the micropython device
+Afterwards use the files in /pycom to configure the micropython device
 
 # After all is set and done, protect the boot partition
 ```bash
