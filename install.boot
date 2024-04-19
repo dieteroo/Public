@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ## Enable Boot Read-Only
 sudo raspi-config nonint enable_bootro
 
