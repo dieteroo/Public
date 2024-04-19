@@ -24,4 +24,10 @@ sudo systemctl enable basketclock.service
 sudo systemctl start basketclock.service
 
 ## Reboot
-sudo reboot
+echo -n "The system needs to be rebooted as a final step. Reboot now? [Y/n]: "
+            read answer < /dev/tty
+            if [ "$answer" != "${answer#[Nn]}" ]; then
+                echo "Installation reboot aborted."
+                exit 0
+            fi
+            sudo shutdown -r now
