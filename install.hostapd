@@ -5,8 +5,8 @@ read -p "Please provide a PASSWORD: " your_PASS
 
 sudo apt-get install hostapd -y
 
-cat <<EOF >/etc/hostapd/hostapd.conf
-interface=wlan1
+cat <<EOF >hostapd.conf
+interface=wlan0
 #If this fails, try rt1871xdrv a 
 driver=nl80211
 # Name of the new network: best use the hostname
@@ -20,17 +20,19 @@ auth_algs=3
 # Disable this to insure the AP is visible:
 ignore_broadcast_ssid=0
 wpa=2
-wpa_passphrase="_wifi_SSID_"
+wpa_passphrase="_wifi_PASS_"
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 EOF
 
-sed -i "s/^_wifi_SSID_.*/_wifi_SSID_ ${your_SSID}/" /etc/hostapd/hostapd.conf
-sed -i "s/^_wifi_PASS_.*/_wifi_PASS_ ${your_PASS}/" /etc/hostapd/hostapd.conf
+sudo mv hostapd.conf /etc/hostapd/hostapd.conf
 
-sed -i "s/^_wifi_SSID_.*/_wifi_SSID_ ${your_SSID}/" pycom/boot.py
-sed -i "s/^_wifi_PASS_.*/_wifi_PASS_ ${your_PASS}/" pycom/boot.py
+sudo sed -i "s/_wifi_SSID_/$your_SSID/g" /etc/hostapd/hostapd.conf
+sudo sed -i "s/_wifi_PASS_/$your_PASS/g" /etc/hostapd/hostapd.conf
+
+#sed -i "s/_wifi_SSID_/$your_SSID/g" pycom/boot.py
+#sed -i "s/_wifi_PASS_/$your_PASS/g" pycom/boot.py
 
 sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
 
