@@ -7,6 +7,9 @@
   echo -n "Please provide a password: "
   read your_PASS < /dev/tty
 
+  echo -n "Please provide a WiFi Channel (1 - 6 - 13): "
+  read your_CHANNEL < /dev/tty
+
 sudo apt-get install hostapd -y
 
 cat <<EOF >hostapd.conf
@@ -16,7 +19,7 @@ driver=nl80211
 # Name of the new network: best use the hostname
 ssid=_wifi_SSID_
 # Pick a channel not already in use
-channel=6
+channel=_wifi_CHANNEL_
 # Change to b for older devices?
 hw_mode=g
 macaddr_acl=0
@@ -34,6 +37,7 @@ sudo mv hostapd.conf /etc/hostapd/hostapd.conf
 
 sudo sed -i "s/_wifi_SSID_/$your_SSID/g" /etc/hostapd/hostapd.conf
 sudo sed -i "s/_wifi_PASS_/$your_PASS/g" /etc/hostapd/hostapd.conf
+sudo sed -i "s/_wifi_CHANNEL_/$your_CHANNEL/g" /etc/hostapd/hostapd.conf
 
 #sed -i "s/_wifi_SSID_/$your_SSID/g" pycom/boot.py
 #sed -i "s/_wifi_PASS_/$your_PASS/g" pycom/boot.py
