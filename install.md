@@ -32,10 +32,17 @@
 ```bash
 curl -sL https://raw.githubusercontent.com/dieteroo/Public/main/install.basket | bash
 ```
+
 # If you want to autostart the program run
 ```bash
 curl -sL https://raw.githubusercontent.com/dieteroo/Public/main/install.service | bash
 ```
+
+# If you want to connect via a micropython device run    --  see NOTES on how to configure AP
+```bash
+curl -sL https://raw.githubusercontent.com/dieteroo/Public/main/install.raspAP | bash
+```
+
 # After all is set and done, protect the boot partition
 ```bash
 curl -sL https://raw.githubusercontent.com/dieteroo/Public/main/install.boot | bash
