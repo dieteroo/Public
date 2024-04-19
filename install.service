@@ -1,6 +1,6 @@
 ## Create basketclock.service
 ## Part 1
-cat <<EOF >>basketclock.service
+cat <<EOF >basketclock.service
 [Unit]
 Description=basketclock autostart
 
