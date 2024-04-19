@@ -37,6 +37,7 @@ sudo sed -i "s/_wifi_PASS_/$your_PASS/g" /etc/hostapd/hostapd.conf
 
 #sed -i "s/_wifi_SSID_/$your_SSID/g" pycom/boot.py
 #sed -i "s/_wifi_PASS_/$your_PASS/g" pycom/boot.py
+echo "Make sure to replace _wifi_SSID_ & _wifi_PASS_ in pycom/boot.py as well"
 
 sudo systemctl unmask hostapd
 sudo systemctl enable hostapd
