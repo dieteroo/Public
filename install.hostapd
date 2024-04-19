@@ -46,3 +46,12 @@ echo "Make sure to replace _wifi_SSID_ & _wifi_PASS_ in pycom/boot.py as well"
 sudo systemctl unmask hostapd
 sudo systemctl enable hostapd
 sudo systemctl start hostapd
+
+## Reboot
+echo -n "The system needs to be rebooted as a final step. Reboot now? [Y/n]: "
+            read answer < /dev/tty
+            if [ "$answer" != "${answer#[Nn]}" ]; then
+                echo "Installation reboot aborted."
+                exit 0
+            fi
+            sudo shutdown -r now
