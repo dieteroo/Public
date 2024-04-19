@@ -83,7 +83,7 @@ sudo raspi-config nonint do_resolution 1280 768
 sudo raspi-config nonint do_wifi_country BE
 
 ## Create program directories
-mkdir /opt/basketclock /opt/basketclock/fonts /opt/basketclock/image /opt/basketclock/sounds
+sudo mkdir /opt/basketclock /opt/basketclock/fonts /opt/basketclock/image /opt/basketclock/sounds
 
 ## Download program files
 curl $URL/basketclockthread.py -o /opt/basketclock/basketclockthread.py
