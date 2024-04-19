@@ -31,3 +31,9 @@ sed -i "s/^_wifi_PASS_.*/_wifi_PASS_ ${your_PASS}/" /etc/hostapd/hostapd.conf
 
 sed -i "s/^_wifi_SSID_.*/_wifi_SSID_ ${your_SSID}/" pycom/boot.py
 sed -i "s/^_wifi_PASS_.*/_wifi_PASS_ ${your_PASS}/" pycom/boot.py
+
+sudo /usr/sbin/hostapd /etc/hostapd/hostapd.conf
+
+sudo systemctl unmask hostapd
+sudo systemctl enable hostapd
+sudo systemctl start hostapd
