@@ -1,0 +1,38 @@
+#!/bin/bash
+
+## Change the URL to the project URL
+URL=https://raw.githubusercontent.com/HenkUyttenhove/basketclock/test
+
+## Make sure the system is up to date
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get autoclean
+sudo apt-get autoremove
+
+## Important changes
+sudo raspi-config nonint enable_overlayfs
+sudo raspi-config nonint do_resolution 1280 768
+sudo raspi-config nonint do_wifi_country BE
+
+## Create program directories
+sudo mkdir /opt/basketclock /opt/basketclock/fonts /opt/basketclock/image /opt/basketclock/sounds
+
+## Download program files
+sudo curl $URL/basketclockthread.py -o /opt/basketclock/basketclockthread.py
+sudo curl $URL/fonts/DejaVuSans-Bold.ttf -o /opt/basketclock/fonts/DejaVuSans-Bold.ttf
+sudo curl $URL/fonts/LED.ttf -o /opt/basketclock/fonts/LED.ttf
+sudo curl $URL/image/hageland.png -o /opt/basketclock/image/hageland.png
+sudo curl $URL/image/handleidingScoreboard.png -o /opt/basketclock/image/handleidingScoreboard.png
+sudo curl $URL/sounds/BUZZER.WAV -o /opt/basketclock/sounds/BUZZER.WAV
+
+## Install pygame
+sudo apt install python3-pip -y
+python3 -m pip install pygame
+
+## Install dependencies
+sudo apt install libsdl2-2.0-0 libsdl2-ttf-2.0-0 libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 -y
+sudo apt install libegl-dev -y
+
+## Install RaspAP
+curl -sL https://install.raspap.com | bash -s -- --yes --path /var/www/html --yes --restapi 0 --wireguard 0 --adblock 0 --openvpn 0 --provider 0
+
