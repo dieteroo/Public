@@ -1,5 +1,0 @@
-## Enable Boot Read-Only
-sudo raspi-config nonint enable_bootro
-
-## Reboot
-sudo reboot
