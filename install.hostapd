@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/bin/bash -i
 
+# Get variables
 read -p 'Please provide a SSID name: ' your_SSID
-read -p 'Please provide a PASSWORD: ' your_PASS  
+read -sp 'Please provide a PASSWORD: ' your_PASS  
 
 sudo apt-get install hostapd -y
 
