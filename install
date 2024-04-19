@@ -102,4 +102,5 @@ sudo apt install libsdl2-2.0-0 libsdl2-ttf-2.0-0 libsdl2-mixer-2.0-0 libsdl2-ima
 sudo apt install libegl-dev -y
 
 ## Install RaspAP
-curl -sL https://install.raspap.com | bash
+curl -sL https://install.raspap.com | bash -s -- --yes --path /var/www/html --yes --restapi 0 --wireguard 0 --adblock 0 --openvpn 0 --provider 0
+
