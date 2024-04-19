@@ -1,0 +1,33 @@
+#!/bin/bash
+
+read -p "Please provide a SSID name: " your_SSID
+read -p "Please provide a PASSWORD: " your_PASS  
+
+sudo apt-get install hostapd -y
+
+cat <<EOF >/etc/hostapd/hostapd.conf
+interface=wlan1
+#If this fails, try rt1871xdrv a 
+driver=nl80211
+# Name of the new network: best use the hostname
+ssid=_wifi_SSID_
+# Pick a channel not already in use
+channel=6
+# Change to b for older devices?
+hw_mode=g
+macaddr_acl=0
+auth_algs=3
+# Disable this to insure the AP is visible:
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase="_wifi_SSID_"
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+EOF
+
+sed -i "s/^_wifi_SSID_.*/_wifi_SSID_ ${your_SSID}/" /etc/hostapd/hostapd.conf
+sed -i "s/^_wifi_PASS_.*/_wifi_PASS_ ${your_PASS}/" /etc/hostapd/hostapd.conf
+
+sed -i "s/^_wifi_SSID_.*/_wifi_SSID_ ${your_SSID}/" pycom/boot.py
+sed -i "s/^_wifi_PASS_.*/_wifi_PASS_ ${your_PASS}/" pycom/boot.py
